@@ -149,4 +149,36 @@ select ename,empno,sal,deptno from emp where ename like '%E%' and sal not betwee
 --6번문제
 select * from emp where job = 'MANAGER' and ename not like '_L%' or job ='CLERK' and ename not like '_L%';
 
+select 'Welcome', upper('Welcome') from dual;
+
+select lower(ename),upper(ename) from emp;
+
+select * from emp where lower(ename) = 'scott';
+
+select ename,LENGTH(ename) from emp;
+
+select 'Welcome to Oracle',substr('Welcome to Oracle',2,3),substr('Welcome to Oracle',10) from dual;
+select 'Welcome to Oracle',substr('Welcome to Oracle',-3,3),substr('Welcome to Oracle',10) from dual;
+select instr('Welcome to Oracle','o') from dual;
+select instr('Welcome to Oracle','o',6) from dual;
+select instr('Welcome to Oracle','e',3,2) from dual;
+
+select 'Welcome to Oracle',replace('Welcome to Oracle', 'to','of') from dual;
+
+select 'oracle',lpad('oracle',10,'#'),rpad('oracle',10,'*') from dual;
+
+select rpad('930103-',14,'*') from dual;
+
+select concat(empno,ename), empno||''||ename from emp;
+
+--숫자함수
+select round(1234.5678),round(1234.5678,0),round(1234.5678,1),round(1234.5678,2),round(1234.5678,-1) from dual; --반올림. 소숫점 첫째자리까지 살려 반올림해라... 
+--뒤에 수가 있으면 그 수까지 살려 반올림하라는 소리 -는 정수(왼쪽으로 진행)
+select trunc(1234.5678),trunc(1234.5678,0),trunc(1234.5678,1),trunc(1234.5678,2),trunc(1234.5678,-1) from dual;
+-- 첫번째 실수만 남기고 버려라
+select ceil(3.14),floor(3.14),ceil(-3.14),floor(-3.14) from dual;
+--ceil: 현재 값에서 가장 가까운 본인보다 큰 정수 / floor: 현재 값에서 가장 가까운 본인보다 작은 정수
+select mod(5,2),mod(10,4) from dual; --나머지구하기
+
+select * from emp where mod(empno,2) =1;
 
