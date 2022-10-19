@@ -153,7 +153,7 @@ select 'Welcome', upper('Welcome') from dual;
 
 select lower(ename),upper(ename) from emp;
 
-select * from emp where lower(ename) = 'scott';
+select * from emp where lower(ename) = 'scott'; --기억해두기
 
 select ename,LENGTH(ename) from emp;
 
