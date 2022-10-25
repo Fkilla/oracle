@@ -89,7 +89,7 @@ where rownum >=1 and rownum <=5; --rownum은 조건절에 직접 사용시 반드시 1을 포함
 
 create or replace view view_hiredate_rm
 as
-select rownum rm, empno, ename,hiredate --rownum에 별칭을 부여해주어야 휘발성이 없어지고 뷰 테이블에 사용가능하다.
+select rownum as rm, empno, ename,hiredate --rownum에 별칭을 부여해주어야 휘발성이 없어지고 뷰 테이블에 사용가능하다.
 from view_hiredate;
 
 select rm, empno, ename, hiredate
@@ -172,24 +172,81 @@ insert into emp01
 values(emp_seq.nextval,'hong',sysdate);
 -- empno에서 값이 2가 되는데, 이건 오라클 에러이다. 1을 넣고 싶다면 시작 값을 0으로 넣으면 된다.
 
+drop table product1;
+drop sequence idx_product_id;
+
+create table product1(
+    pid varchar2(10),
+    pname varchar2(10),
+    price number(5),
+    
+    constraint product_pid_pk primary key(pid)
+);
+
+create sequence idx_product_id
+start with 1000;
+
+insert into product1(pid,pname,price)
+values ('pid'||idx_product_id.nextval,'mike',1000);
+
+select * from product1;
 
 
 
+-- 사용자관리(객체)
+-- 관리자 계정에서 가능한 작업들이다(ex)system
+-- create, alter, drop
+-- 사용방식(사용자 계정을 만드는 명령어)
+--create user 계정명 identified by 패스워드;
+--대소문자를 구분하니 주의!
+-- alter 사용법
+-- alter user 계정명 identified by 패스워드;
+-- drop 사용법
+-- drop user 계정명 identified by cascade;
 
+-- DCL(제어어)
+-- - grant(권한부여)
+    -- - grant 시스템권한 to 계정명
+-- - revoke(권환회수)
+    -- - revoke 시스템권한 from  계정명
+-- 예시
+-- grant CREATE SESSION
+-- to user01;
 
+--변경 사용가능~
+-- alter user user01 identified by tiger;
 
+-- 시스템권한(create..)
+-- 객체권한(select, ...)
 
+-- 소유주 계정에서 진행
+--grant 객체권한 종료
+--on 객체명(테이블 이름)
+--to 계정명
 
+grant select
+on emp
+to user01;
 
+revoke select 
+on emp
+from user01;
 
+-- 
 
+-- 사용자 정의 롤
+-- create role 롤명
+-- grant 권한 to 롤명
+-- 시스템계정만 가능
 
+grant select
+on emp
+to mrole2;
 
+-- 롤 권한은 관리자 계정에서만 
 
-
-
-
-
-
+grant select
+on emp
+to mrole3;
 
 
